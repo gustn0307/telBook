@@ -1,7 +1,7 @@
 package dto;
 
 public class TelDto {
-    public Long id;
+    private Long id;
     private String name;
     private int age;
     private String address;
@@ -49,5 +49,16 @@ public class TelDto {
         this.age = age;
         this.address = address;
         this.telNumber = telNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "TelDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", address='" + address + '\'' +
+                ", telNumber='" + telNumber + '\'' +
+                '}';
     }
 }
