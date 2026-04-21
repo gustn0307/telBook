@@ -13,7 +13,7 @@ public class DBConn {
 
     // DB 연결
     public static Connection getConnection() {
-        if (dbConn == null){
+        if (dbConn == null) {
             try {
                 String dbDriver = "com.mysql.cj.jdbc.Driver";
                 String dbUrl = "jdbc:mysql://localhost:3306/teldb";
@@ -23,10 +23,10 @@ public class DBConn {
                 Class.forName(dbDriver); // 드라이버 클래스를 메모리로 가져온다.
                 dbConn = DriverManager.getConnection(dbUrl, dbUser, dbPassword); // DB 연결 생성
                 System.out.println("DB 연결 성공~~~");
-            }catch (ClassNotFoundException e){
+            } catch (ClassNotFoundException e) {
                 System.out.println("드라이버가 없어요. 실패");
                 e.printStackTrace();
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println("DB 연결 실패");
                 e.printStackTrace();
             }
@@ -35,13 +35,13 @@ public class DBConn {
     }
 
     // DB 연결 종료 시 처리
-    private static void close(){
+    private static void close() {
         if (dbConn != null) {
             try {
-                if (!dbConn.isClosed()){
+                if (!dbConn.isClosed()) {
                     dbConn.close();
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }

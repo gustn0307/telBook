@@ -2,6 +2,10 @@ package main;
 
 import db.DBConn;
 import exception.MyException;
+import repository.TelBookRepository;
+import repository.TelBookRepositoryImpl;
+import service.TelBookService;
+import service.TelBookServiceImpl;
 import view.UserView;
 
 import java.sql.Connection;
@@ -10,10 +14,12 @@ import java.util.Scanner;
 public class TelBookMain {
     static void main() throws MyException {
 //        Connection connection = DBConn.getConnection();
-        
-        Scanner sc = new Scanner(System.in);
 
-        UserView userView = new UserView(sc);
+        Scanner sc = new Scanner(System.in);
+        TelBookRepository telBookRepository = new TelBookRepositoryImpl();
+        TelBookService telBookService = new TelBookServiceImpl(telBookRepository);
+
+        UserView userView = new UserView(sc, telBookService);
 
         while (true) {
             int input;
@@ -22,7 +28,7 @@ public class TelBookMain {
                 System.out.print("▶ 메뉴 입력 : ");
                 input = sc.nextInt();
                 sc.nextLine(); // 버퍼 비우기
-            }while (input < 1 || input > 6);
+            } while (input < 1 || input > 6);
 
             switch (input) {
                 case 1:
