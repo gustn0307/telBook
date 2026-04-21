@@ -16,6 +16,11 @@ public class UserView {
         // 검증 인스턴스 생성
         InputValidation validation = new InputValidation();
 
+        String name;
+        int age;
+        String phone;
+        String address;
+
         System.out.println("== 전화번호 등록 ==");
 
         // 이름 올바른 값이 들어올 때까지 반복
@@ -23,7 +28,7 @@ public class UserView {
         do {
             try {
                 System.out.print("이름 : "); // 이름은 한글만, 중간 공백 없이
-                String name = sc.nextLine();
+                name = sc.nextLine();
                 validation.nameCheck(name); // 이름 검증
                 check = true;
             }catch (MyException e){
@@ -31,13 +36,34 @@ public class UserView {
             }
         }while (!check);
 
-        System.out.print("나이 : "); // 나이: 0~120세 사이값
-        int age = sc.nextInt();
-        sc.nextLine(); // 버퍼 비우기
+        boolean ageOk = false;
+        do {
+            try {
+                System.out.print("나이 : "); // 나이: 0~120세 사이값
+                age = sc.nextInt();
+                sc.nextLine(); // 버퍼 비우기
+                validation.ageCheck(age);
+                ageOk = true;
+            } catch (MyException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!ageOk);
+
         System.out.print("주소 : ");
-        String address = sc.nextLine();
-        System.out.print("전화번호 : "); // 전화번호: 010-####-#### 형식으로
-        String phone = sc.nextLine();
+        address = sc.nextLine();
+
+        boolean phoneOk = false;
+        do {
+            try {
+                System.out.print("전화번호 : "); // 전화번호: 010-####-#### 형식으로
+                phone = sc.nextLine();
+                validation.telNumCheck(phone);
+                phoneOk = true;
+            } catch (MyException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!phoneOk);
+
 
 
     }

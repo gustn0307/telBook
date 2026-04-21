@@ -11,7 +11,6 @@ public class TelBookMain {
 
         UserView userView = new UserView(sc);
 
-
         while (true) {
             int input;
             do {
