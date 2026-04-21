@@ -1,10 +1,15 @@
 package main;
 
+import view.UserView;
+
 import java.util.Scanner;
 
 public class TelBookMain {
     static void main() {
         Scanner sc = new Scanner(System.in);
+
+        UserView userView = new UserView(sc);
+
 
         while (true) {
             int input;
@@ -17,14 +22,19 @@ public class TelBookMain {
 
             switch (input) {
                 case 1:
+                    userView.insert();
                     break;
                 case 2:
+                    userView.update();
                     break;
                 case 3:
+                    userView.delete();
                     break;
                 case 4:
+                    userView.searchAll();
                     break;
                 case 5:
+                    userView.searchOne();
                     break;
                 case 6:
                     System.out.println("종료합니다.");
