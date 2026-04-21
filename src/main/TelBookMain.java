@@ -1,11 +1,12 @@
 package main;
 
+import exception.MyException;
 import view.UserView;
 
 import java.util.Scanner;
 
 public class TelBookMain {
-    static void main() {
+    static void main() throws MyException {
         Scanner sc = new Scanner(System.in);
 
         UserView userView = new UserView(sc);
