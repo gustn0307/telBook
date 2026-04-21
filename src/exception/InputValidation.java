@@ -10,7 +10,7 @@ public class InputValidation {
         boolean check = Pattern.matches("^[ㄱ-ㅎ가-힣]*$",name); // 한글만 허용
 
         if (!check) {
-            throw new MyException("※ 이름은 한글로 입력해 주세요.");
+            throw new MyException("※ 이름은 공백없이 한글로 입력해 주세요.");
         }
     }
 

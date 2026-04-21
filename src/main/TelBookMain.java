@@ -1,12 +1,16 @@
 package main;
 
+import db.DBConn;
 import exception.MyException;
 import view.UserView;
 
+import java.sql.Connection;
 import java.util.Scanner;
 
 public class TelBookMain {
     static void main() throws MyException {
+//        Connection connection = DBConn.getConnection();
+        
         Scanner sc = new Scanner(System.in);
 
         UserView userView = new UserView(sc);
