@@ -15,7 +15,9 @@ public class TelBookMain {
     static void main() throws MyException {
         Connection connection = DBConn.getConnection(); // DB 연결
         Scanner sc = new Scanner(System.in);
+
         TelBookRepository telBookRepository = new TelBookRepositoryImpl(connection);
+
         TelBookService telBookService = new TelBookServiceImpl(telBookRepository);
 
         UserView userView = new UserView(sc, telBookService);
@@ -31,22 +33,23 @@ public class TelBookMain {
 
             switch (input) {
                 case 1:
-                    userView.insert(); // 구현 완료
+                    userView.insert();
                     break;
                 case 2:
                     userView.update();
                     break;
                 case 3:
-                    userView.delete(); // 구현 완료
+                    userView.delete();
                     break;
                 case 4:
-                    userView.searchAll(); // 구현 완료
+                    userView.searchAll();
                     break;
                 case 5:
-                    userView.searchOne(); // 구현 완료
+                    userView.searchOne();
                     break;
                 case 6:
                     System.out.println("종료합니다.");
+                    DBConn.close();
                     return;
                 default:
                     System.out.println("1 ~ 6 중 하나를 입력해주세요");

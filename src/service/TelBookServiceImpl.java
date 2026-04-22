@@ -35,4 +35,9 @@ public class TelBookServiceImpl implements TelBookService {
     public int delete(Long id) {
         return repository.deleteById(id);
     }
+
+    @Override
+    public void update(TelDto oldData) {
+        repository.update(oldData);
+    }
 }

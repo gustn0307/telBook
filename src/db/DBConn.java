@@ -35,7 +35,7 @@ public class DBConn {
     }
 
     // DB 연결 종료 시 처리
-    private static void close() {
+    public static void close() {
         if (dbConn != null) {
             try {
                 if (!dbConn.isClosed()) {

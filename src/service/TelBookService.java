@@ -12,4 +12,6 @@ public interface TelBookService {
     List<TelDto> getListOne(Long id);
 
     int delete(Long id);
+
+    void update(TelDto oldData);
 }
