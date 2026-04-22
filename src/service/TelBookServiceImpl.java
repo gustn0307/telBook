@@ -5,7 +5,7 @@ import repository.TelBookRepository;
 
 import java.util.List;
 
-public class TelBookServiceImpl implements TelBookService{
+public class TelBookServiceImpl implements TelBookService {
     private final TelBookRepository repository;
 
     public TelBookServiceImpl(TelBookRepository repository) {
