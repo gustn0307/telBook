@@ -41,7 +41,6 @@ public class TelBookRepositoryImpl implements TelBookRepository {
     @Override
     public List<TelDto> findAll() {
         List<TelDto> dtoList = new ArrayList<>();
-        int result = 0;
         PreparedStatement psmt = null; // 쿼리를 실행할 도구
         ResultSet rs = null; // 검색 결과 레코드셋을 담을 도구
 
@@ -61,8 +60,43 @@ public class TelBookRepositoryImpl implements TelBookRepository {
                 dto.setTelNumber(rs.getString("phone"));
                 dtoList.add(dto); // 전화번호부에 DB에서 읽어온 정보 추가
             }
+            psmt.close(); // 사용 후 닫아주기
+            rs.close(); // 사용 후 닫아주기
         } catch (Exception e) {
             System.out.println("SEARCH ALL 오류: " + e.getMessage());
+        }
+
+        return dtoList;
+    }
+
+    @Override
+    public List<TelDto> findById(Long id) {
+        List<TelDto> dtoList = new ArrayList<>();
+        PreparedStatement psmt = null;
+        ResultSet rs = null; // 검색 결과 레코드셋을 담을 도구
+
+        try {
+            // select * from telbook으로 자바에서 id 일치하는지 찾으면 느리고
+            // DB에 바로 쿼리로 날리는게 빠르니까 아래와 같이 구현
+            String sql = "SELECT * FROM telbook WHERE id = ?";
+            psmt = conn.prepareStatement(sql);
+            psmt.setLong(1, id);
+
+            rs = psmt.executeQuery();  // SQL 쿼리 실행 결과를 rs에 받는다
+
+            while (rs.next()) { // 다음 레코드가 있으면 반복문 수행
+                TelDto dto = new TelDto(); // 읽어온 레코드를 담을 빈 DTO를 생성
+                dto.setId(rs.getLong("id"));
+                dto.setName(rs.getString("name"));
+                dto.setAge(rs.getInt("age"));
+                dto.setAddress(rs.getString("address"));
+                dto.setTelNumber(rs.getString("phone"));
+                dtoList.add(dto); // 전화번호부에 DB에서 읽어온 정보 추가
+            }
+            psmt.close(); // 사용 후 닫아주기
+            rs.close(); // 사용 후 닫아주기
+        } catch (Exception e) {
+            System.out.println("findById 오류: " + e.getMessage());
         }
 
         return dtoList;
