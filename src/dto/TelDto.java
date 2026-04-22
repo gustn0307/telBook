@@ -1,15 +1,18 @@
 package dto;
 
 public class TelDto {
-    private final Long id;
+    private Long id;
     private String name;
     private int age;
     private String address;
     private String telNumber;
 
+
     public Long getId() {
         return id;
     }
+
+    public void setId(Long id){this.id = id;}
 
     public String getName() {
         return name;
@@ -41,6 +44,9 @@ public class TelDto {
 
     public void setTelNumber(String telNumber) {
         this.telNumber = telNumber;
+    }
+
+    public TelDto() {
     }
 
     public TelDto(Long id, String name, int age, String address, String telNumber) {
