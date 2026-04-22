@@ -124,4 +124,27 @@ public class TelBookRepositoryImpl implements TelBookRepository {
 
         return result;
     }
+
+    @Override
+    public void update(TelDto oldData) {
+        PreparedStatement psmt = null;
+
+        try {
+            // 쿼리가 헷갈리면 DB에서 쿼리로 실행해서 테스트해보고 그 쿼리를 바탕으로 아래 문장을 만든다.
+            // 쿼리가 길어져 중간에 엔터를 치고 '+'로 이어져도 DB에 전달될 때 오류가 생길 수 있어 길어져도 한 줄로 써야 함.
+            // 또는 StringBuilder로 SQL 쿼리를 작성해도 된다.
+            String sql = "UPDATE telbook SET name = ?, age = ?, address = ?, phone = ? WHERE id = ?"; // 쿼리 생성
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1, oldData.getName());
+            psmt.setInt(2, oldData.getAge());
+            psmt.setString(3, oldData.getAddress());
+            psmt.setString(4, oldData.getTelNumber());
+            psmt.setLong(5, oldData.getId());
+
+            psmt.executeUpdate(); // 쿼리 실행
+            psmt.close(); // 사용 후 닫아주기
+        } catch (Exception e) {
+            System.out.println("UPDATE 오류: " + e.getMessage());
+        }
+    }
 }

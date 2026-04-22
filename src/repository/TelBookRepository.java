@@ -12,4 +12,6 @@ public interface TelBookRepository {
     List<TelDto> findById(Long id);
 
     int deleteById(Long id);
+
+    void update(TelDto oldData);
 }

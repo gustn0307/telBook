@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class UserView {
     private final Scanner sc;
     private final TelBookService service;
+    InputValidation validation = new InputValidation(); // 검증 인스턴스 생성
 
     public UserView(Scanner scanner, TelBookService service) {
         this.sc = scanner;
@@ -19,9 +20,6 @@ public class UserView {
     }
 
     public void insert() throws MyException {
-        // 검증 인스턴스 생성
-        InputValidation validation = new InputValidation();
-
         String name = "";
         int age = 0;
         String address = "";
@@ -73,12 +71,89 @@ public class UserView {
     }
 
     public void update() {
+        searchAll();
+        String name = "";
+        int age = 0;
+        String address = "";
+        String phone = "";
+        System.out.print("수정할 ID: ");
+        Long id = sc.nextLong();
+        sc.nextLine(); // 버퍼 비우기
+
+        // 해당 아이디가 존재하는지 확인
+        List<TelDto> exists = service.getListOne(id);
+        if (exists.isEmpty()) {
+            System.out.println("해당 ID는 전화번호부에 없습니다.");
+            return;
+        }
+
+        TelDto oldData = exists.getFirst();
+
+        // 이름 올바른 값이 들어올 때까지 반복
+        boolean check = false;
+        do {
+            try {
+                System.out.println("수정 전 이름: " + oldData.getName());
+                System.out.print("수정할 이름 : "); // 이름은 한글만, 중간 공백 없이
+                name = sc.nextLine();
+                validation.nameCheck(name); // 이름 검증
+                check = true;
+            } catch (MyException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!check);
+
+        boolean ageOk = false;
+        do {
+            try {
+                System.out.println("수정 전 나이: " + oldData.getAge());
+                System.out.print("수정할 나이 : "); // 나이: 0~120세 사이값
+                age = sc.nextInt();
+                sc.nextLine(); // 버퍼 비우기
+                validation.ageCheck(age);
+                ageOk = true;
+            } catch (MyException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!ageOk);
+        System.out.println("수정 전 주소: " + oldData.getAddress());
+        System.out.print("수정할 주소 : ");
+        address = sc.nextLine();
+
+        boolean phoneOk = false;
+        do {
+            try {
+                System.out.println("수정 전 전화번호: " + oldData.getTelNumber());
+                System.out.print("수정할 전화번호 : "); // 전화번호: 010-####-#### 형식으로
+                phone = sc.nextLine();
+                validation.telNumCheck(phone);
+                phoneOk = true;
+            } catch (MyException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!phoneOk);
+
+        // TelDto 인스턴스 oldData의 필드값을 입력받은 값들로 수정해서 서비스에 넘겨준다.
+        oldData.setName(name);
+        oldData.setAge(age);
+        oldData.setAddress(address);
+        oldData.setTelNumber(phone);
+
+        service.update(oldData);
     }
 
     public void delete() {
         searchAll();
         System.out.print("삭제할 ID: ");
         Long id = sc.nextLong();
+        sc.nextLine(); // 버퍼 비우기
+
+        // 해당 아이디가 존재하는지 확인
+        List<TelDto> exists = service.getListOne(id);
+        if (exists.isEmpty()) {
+            System.out.println("해당 ID는 전화번호부에 없습니다.");
+            return;
+        }
 
         int result = service.delete(id);
         System.out.println(result == 1 ? "삭제 완료" : "삭제 실패");
