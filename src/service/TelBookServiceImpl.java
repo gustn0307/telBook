@@ -5,7 +5,7 @@ import repository.TelBookRepository;
 
 import java.util.List;
 
-public class TelBookServiceImpl implements TelBookService{
+public class TelBookServiceImpl implements TelBookService {
     private final TelBookRepository repository;
 
     public TelBookServiceImpl(TelBookRepository repository) {
@@ -29,5 +29,10 @@ public class TelBookServiceImpl implements TelBookService{
     @Override
     public List<TelDto> getListOne(Long id) {
         return repository.findById(id);
+    }
+
+    @Override
+    public int delete(Long id) {
+        return repository.deleteById(id);
     }
 }

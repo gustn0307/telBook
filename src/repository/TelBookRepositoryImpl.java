@@ -84,6 +84,10 @@ public class TelBookRepositoryImpl implements TelBookRepository {
 
             rs = psmt.executeQuery();  // SQL 쿼리 실행 결과를 rs에 받는다
 
+            // SQL문이 select문이면 반환한 레코드를 저장할 객체가 필요한데,
+            // 이때 레코드를 담는 그릇이 ResultSet이다.
+            // ResultSet 객체는 커서를 가지는데, 반환된 직후 ResultSet 객체의 커서는 첫 번째 레코드 이전을 가리킨다.
+            // 따라서 첫 번째 레코드를 가리키려면 next() 메서드를 실행해야 한다.
             while (rs.next()) { // 다음 레코드가 있으면 반복문 수행
                 TelDto dto = new TelDto(); // 읽어온 레코드를 담을 빈 DTO를 생성
                 dto.setId(rs.getLong("id"));
@@ -100,5 +104,24 @@ public class TelBookRepositoryImpl implements TelBookRepository {
         }
 
         return dtoList;
+    }
+
+    @Override
+    public int deleteById(Long id) {
+        int result = 0; // 실행 결과를 담을 변수
+        PreparedStatement psmt = null;
+
+        try {
+            String sql = "DELETE FROM telbook WHERE id = ?"; // 쿼리 생성
+            psmt = conn.prepareStatement(sql);
+            psmt.setLong(1, id);
+
+            result = psmt.executeUpdate(); // 실행 결과 반환(성공하면 숫자 반환함)
+            psmt.close(); // 사용 후 닫아주기
+        } catch (Exception e) {
+            System.out.println("DELETE 오류: " + e.getMessage());
+        }
+
+        return result;
     }
 }

@@ -10,4 +10,6 @@ public interface TelBookRepository {
     List<TelDto> findAll();
 
     List<TelDto> findById(Long id);
+
+    int deleteById(Long id);
 }
