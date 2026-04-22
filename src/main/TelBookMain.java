@@ -13,10 +13,9 @@ import java.util.Scanner;
 
 public class TelBookMain {
     static void main() throws MyException {
-//        Connection connection = DBConn.getConnection();
-
+        Connection connection = DBConn.getConnection(); // DB 연결
         Scanner sc = new Scanner(System.in);
-        TelBookRepository telBookRepository = new TelBookRepositoryImpl();
+        TelBookRepository telBookRepository = new TelBookRepositoryImpl(connection);
         TelBookService telBookService = new TelBookServiceImpl(telBookRepository);
 
         UserView userView = new UserView(sc, telBookService);
