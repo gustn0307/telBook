@@ -10,4 +10,6 @@ public interface TelBookService {
     List<TelDto> getListAll();
 
     List<TelDto> getListOne(Long id);
+
+    int delete(Long id);
 }

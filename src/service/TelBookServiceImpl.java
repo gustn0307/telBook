@@ -30,4 +30,9 @@ public class TelBookServiceImpl implements TelBookService{
     public List<TelDto> getListOne(Long id) {
         return repository.findById(id);
     }
+
+    @Override
+    public int delete(Long id) {
+        return repository.deleteById(id);
+    }
 }

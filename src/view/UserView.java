@@ -76,6 +76,12 @@ public class UserView {
     }
 
     public void delete() {
+        searchAll();
+        System.out.print("삭제할 ID: ");
+        Long id = sc.nextLong();
+
+        int result = service.delete(id);
+        System.out.println(result == 1 ? "삭제 완료" : "삭제 실패");
     }
 
     public void searchAll() {
@@ -100,7 +106,7 @@ public class UserView {
         List<TelDto> list = service.getListOne(id);
 
         if (!list.isEmpty()) {
-            list.forEach(x-> System.out.println(x));
+            list.forEach(x -> System.out.println(x));
             return;
         }
         System.out.println("해당 ID가 없습니다.");

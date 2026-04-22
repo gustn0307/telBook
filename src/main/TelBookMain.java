@@ -31,19 +31,19 @@ public class TelBookMain {
 
             switch (input) {
                 case 1:
-                    userView.insert();
+                    userView.insert(); // 구현 완료
                     break;
                 case 2:
                     userView.update();
                     break;
                 case 3:
-                    userView.delete();
+                    userView.delete(); // 구현 완료
                     break;
                 case 4:
-                    userView.searchAll();
+                    userView.searchAll(); // 구현 완료
                     break;
                 case 5:
-                    userView.searchOne();
+                    userView.searchOne(); // 구현 완료
                     break;
                 case 6:
                     System.out.println("종료합니다.");
