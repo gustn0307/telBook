@@ -93,5 +93,16 @@ public class UserView {
     }
 
     public void searchOne() {
+
+        System.out.print("검색할 ID: ");
+        Long id = sc.nextLong();
+        sc.nextLine(); // 버퍼 비우기
+        List<TelDto> list = service.getListOne(id);
+
+        if (!list.isEmpty()) {
+            list.forEach(x-> System.out.println(x));
+            return;
+        }
+        System.out.println("해당 ID가 없습니다.");
     }
 }

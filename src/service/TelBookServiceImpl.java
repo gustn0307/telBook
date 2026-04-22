@@ -25,4 +25,9 @@ public class TelBookServiceImpl implements TelBookService{
     public List<TelDto> getListAll() {
         return repository.findAll();
     }
+
+    @Override
+    public List<TelDto> getListOne(Long id) {
+        return repository.findById(id);
+    }
 }
