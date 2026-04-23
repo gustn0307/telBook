@@ -14,4 +14,6 @@ public interface TelBookRepository {
     int deleteById(Long id);
 
     void update(TelDto oldData);
+
+    List<TelDto> findByKeyword(int choice, String keyword);
 }

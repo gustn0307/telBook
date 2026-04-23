@@ -40,4 +40,10 @@ public class TelBookServiceImpl implements TelBookService {
     public void update(TelDto oldData) {
         repository.update(oldData);
     }
+
+    @Override
+    public List<TelDto> getListByKeyword(int choice, String keyword) {
+        return repository.findByKeyword(choice, keyword);
+    }
+
 }

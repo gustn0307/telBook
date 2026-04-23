@@ -14,4 +14,6 @@ public interface TelBookService {
     int delete(Long id);
 
     void update(TelDto oldData);
+
+    List<TelDto> getListByKeyword(int choice, String keyword);
 }
