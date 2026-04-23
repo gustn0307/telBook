@@ -157,9 +157,9 @@ public class TelBookRepositoryImpl implements TelBookRepository {
         try {
             String sql = "";
             // choice에 따른 SQL문 변경
-            if (choice == 1) {
+            if (choice == 1) { // 이름 검색
                 sql = "SELECT * FROM telbook WHERE name LIKE ?"; // 쿼리
-            } else {
+            } else { // 주소 검색
                 sql = "SELECT * FROM telbook WHERE address LIKE ?"; // 쿼리
             }
             psmt = conn.prepareStatement(sql);

@@ -190,29 +190,38 @@ public class UserView {
     public void search() {
         // 검색을 선택하면 1. 이름  2. 주소 를 선택하는 화면이 나온 후
         // 검색 방식 선택번호 choice와 검색어 keyword 값을 받아 검색 기능 실행
-        System.out.println("1. 이름  2. 주소");
-        System.out.print("검색 방식 선택(번호만 입력): ");
-        int choice = sc.nextInt();
-        sc.nextLine(); // 버퍼 비우기
+        int choice = -1;
         String keyword = "";
-        List<TelDto> dtoList = new ArrayList<>();
+        do {
+            System.out.println("1. 이름  2. 주소");
+            System.out.print("검색 방식 선택(번호만 입력): ");
+            choice = sc.nextInt();
+            sc.nextLine(); // 버퍼 비우기
 
-        if (choice == 1) {
-            System.out.print("검색할 이름: ");
-        } else if (choice == 2) {
-            System.out.print("검색할 주소: ");
-        } else {
-            System.out.println("입력 오류: 1, 2 중 하나를 입력하세요.");
-            return;
-        }
-        keyword = sc.nextLine();
+            if (choice == 1) {
+                System.out.print("검색할 이름의 일부: ");
+            } else if (choice == 2) {
+                System.out.print("검색할 주소의 일부: ");
+            } else {
+                System.out.println("1 or 2를 입력해 주세요.");
+                continue;
+            }
 
-        dtoList = service.getListByKeyword(choice, keyword);
+            keyword = sc.nextLine();
+        }while (choice < 1 || choice > 2);
+
+        List<TelDto> dtoList = service.getListByKeyword(choice, keyword);
 
         if (!dtoList.isEmpty()) {
             dtoList.forEach(x -> System.out.println(x));
             return;
         }
         System.out.println("해당하는 검색어를 가진 연락처가 없습니다.");
+
+
+
+
+
+
     }
 }
