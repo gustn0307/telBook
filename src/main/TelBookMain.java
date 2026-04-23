@@ -25,11 +25,11 @@ public class TelBookMain {
         while (true) {
             int input;
             do {
-                System.out.println("1. 입력  2. 수정  3. 삭제  4. 전체출력  5. ID검색  6. 종료");
+                System.out.println("1. 입력  2. 수정  3. 삭제  4. 전체출력  5. ID검색  6. 검색  7. 종료");
                 System.out.print("▶ 메뉴 입력 : ");
                 input = sc.nextInt();
                 sc.nextLine(); // 버퍼 비우기
-            } while (input < 1 || input > 6);
+            } while (input < 1 || input > 7);
 
             switch (input) {
                 case 1:
@@ -48,11 +48,14 @@ public class TelBookMain {
                     userView.searchOne();
                     break;
                 case 6:
+                    userView.search();
+                    break;
+                case 7:
                     System.out.println("종료합니다.");
                     DBConn.close();
                     return;
                 default:
-                    System.out.println("1 ~ 6 중 하나를 입력해주세요");
+                    System.out.println("1 ~ 7 중 하나를 입력해주세요");
             }
         }
     }
